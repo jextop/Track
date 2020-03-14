@@ -1,5 +1,7 @@
 package com.track;
 
+import com.track.job.TrackUtil;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +25,9 @@ public class TrackFrame {
                     trackBtn.setText(isTracking ? "停止定位" : "开始定位");
 
                     if (isTracking) {
-                        TrackUtil.sendPosition();
+                        TrackUtil.start();
+                    } else {
+                        TrackUtil.stop();
                     }
                 }
             }
@@ -32,7 +36,7 @@ public class TrackFrame {
 
     public static JFrame showFrame() {
         // create frame
-        final JFrame frame = new JFrame("代驾定位追踪客户端");
+        final JFrame frame = new JFrame("代驾定位客户端");
         frame.setSize(400, 300);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
