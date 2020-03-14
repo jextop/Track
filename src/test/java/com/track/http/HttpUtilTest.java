@@ -1,10 +1,10 @@
-package com.walle.http;
+package com.track.http;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.walle.util.B64Util;
-import com.walle.util.LogUtil;
-import com.walle.util.StrUtil;
+import com.track.util.B64Util;
+import com.track.util.LogUtil;
+import com.track.util.StrUtil;
 import org.junit.Assert;
 import org.junit.Test;
 

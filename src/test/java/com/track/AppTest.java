@@ -1,5 +1,6 @@
-package com.walle;
+package com.track;
 
+import com.track.App;
 import org.junit.Test;
 
 /**

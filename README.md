@@ -1,5 +1,5 @@
-# aiChat智能语音聊天机器人
-Java + HttpClient + AI云服务（百度AI语音识别、语音合成、图灵机器人） + 百度IP地址定位
+# 代驾定位客户端
+Java + HttpClient + Web服务
 
 # 部署Web服务
 https://github.com/jextop/StarterDeploy
@@ -13,4 +13,4 @@ IntelliJ IDEA, Maven
 # 启动客户端
 ./launch.sh
 
-![](https://github.com/jextop/aiChat/blob/master/aiChat.png)
+![](https://github.com/jextop/Track/blob/master/Track.jpg)

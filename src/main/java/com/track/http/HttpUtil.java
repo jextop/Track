@@ -1,8 +1,8 @@
-package com.walle.http;
+package com.track.http;
 
-import com.walle.util.JsonUtil;
-import com.walle.util.LogUtil;
-import com.walle.util.StrUtil;
+import com.track.util.JsonUtil;
+import com.track.util.LogUtil;
+import com.track.util.StrUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.http.HttpEntity;
