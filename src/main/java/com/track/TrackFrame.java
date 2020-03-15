@@ -22,7 +22,9 @@ public class TrackFrame {
         trackListener = new TrackListener() {
             @Override
             public void positionUpdated(String address) {
-                trackLbl.setText(address);
+                synchronized (TrackFrame.class) {
+                    trackLbl.setText(address);
+                }
             }
         };
 

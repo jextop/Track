@@ -14,17 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrackUtil {
-    private static final String cron = "0/1 * * * * ?";
+    private static final String CRON = "0/1 * * * * ?";
     private static final int COUNT = 30;
-
-    private static final List<JobDetail> jobList;
+    private static final List<JobDetail> JOB_LIST;
 
     static {
-        jobList = new ArrayList<JobDetail>();
+        JOB_LIST = new ArrayList<JobDetail>();
 
         // 创建任务，模拟多个客户端
         for (int i = 0; i < COUNT; i++) {
-            jobList.add(JobBuilder.newJob(TrackJob.class)
+            JOB_LIST.add(JobBuilder.newJob(TrackJob.class)
                     .withIdentity(String.format("%s%02d", MacUtil.gtMacAddr(), i + 1))
                     .build()
             );
@@ -32,24 +31,24 @@ public class TrackUtil {
     }
 
     public static void stop() {
-        for (JobDetail job : jobList) {
+        for (JobDetail job : JOB_LIST) {
             try {
                 Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
                 scheduler.deleteJob(job.getKey());
             } catch (SchedulerException e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
         }
     }
 
     public static void start() {
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(cron);
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(CRON);
 
         try {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
 
-            // 定时
-            for (JobDetail job : jobList) {
+            // 配置任务
+            for (JobDetail job : JOB_LIST) {
                 Trigger trigger = TriggerBuilder.newTrigger()
                         .forJob(job)
                         .withSchedule(scheduleBuilder)
@@ -61,7 +60,7 @@ public class TrackUtil {
             // 开启任务
             scheduler.start();
         } catch (SchedulerException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 }

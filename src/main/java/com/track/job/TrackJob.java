@@ -18,6 +18,7 @@ public class TrackJob implements Job {
         final JSONObject location = LocationUtil.getLocation();
         LogUtil.info("Send position", uid, JsonUtil.toStr(location));
 
+        // 发送位置信息
         JSONObject ret = HttpUtil.sendHttpPost(
                 String.format("http://localhost:8011/track/%s", uid),
                 null, location, new RespJsonObj()
