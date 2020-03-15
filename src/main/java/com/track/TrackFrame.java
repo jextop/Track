@@ -1,5 +1,6 @@
 package com.track;
 
+import com.track.job.TrackListener;
 import com.track.job.TrackUtil;
 
 import javax.swing.*;
@@ -12,10 +13,18 @@ public class TrackFrame {
 
     private static JButton trackBtn;
     private static JLabel trackLbl;
+    public static TrackListener trackListener;
 
     static {
         trackBtn = new JButton("开始定位");
         trackLbl = new JLabel(TRACK);
+
+        trackListener = new TrackListener() {
+            @Override
+            public void positionUpdated(String address) {
+                trackLbl.setText(address);
+            }
+        };
 
         trackBtn.addActionListener(new ActionListener() {
             @Override
@@ -28,6 +37,7 @@ public class TrackFrame {
                         TrackUtil.start();
                     } else {
                         TrackUtil.stop();
+                        trackLbl.setText(TRACK);
                     }
                 }
             }

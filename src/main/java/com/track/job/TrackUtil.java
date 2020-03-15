@@ -10,7 +10,7 @@ import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
 public class TrackUtil {
-    private static final String cron = "0/30 * * * * ?";
+    private static final String cron = "0/3 * * * * ?";
     private static final JobDetail job;
 
     static {

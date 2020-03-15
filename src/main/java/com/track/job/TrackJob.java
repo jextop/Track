@@ -1,6 +1,7 @@
 package com.track.job;
 
 import com.alibaba.fastjson.JSONObject;
+import com.track.TrackFrame;
 import com.track.http.HttpUtil;
 import com.track.http.LocationUtil;
 import com.track.http.RespJsonObj;
@@ -11,8 +12,6 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import java.util.HashMap;
-
 public class TrackJob implements Job {
     @Override
     public void execute(JobExecutionContext var1) throws JobExecutionException {
@@ -20,15 +19,12 @@ public class TrackJob implements Job {
         LogUtil.info("Send position", JsonUtil.toStr(location));
 
         JSONObject ret = HttpUtil.sendHttpPost(
-                "http://localhost:8011/track/",
-                null, new HashMap<String, Object>() {{
-                    put("uid", MacUtil.gtMacAddr());
-
-                    if (location != null) {
-                        putAll(location);
-                    }
-                }}, new RespJsonObj()
+                String.format("http://localhost:8011/track/%s", MacUtil.gtMacAddr()),
+                null, location, new RespJsonObj()
         );
         System.out.println(JsonUtil.toStr(ret));
+
+        // 更新界面
+        TrackFrame.trackListener.positionUpdated(ret.getString("msg"));
     }
 }
