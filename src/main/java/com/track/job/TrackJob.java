@@ -26,6 +26,12 @@ public class TrackJob implements Job {
         System.out.println(JsonUtil.toStr(ret));
 
         // 更新界面
-        TrackFrame.trackListener.positionUpdated(ret.getString("msg"));
+        String address = null;
+        if (ret != null) {
+            address = ret.getString("msg");
+        } else if (location != null) {
+            address = (String) location.get("addr");
+        }
+        TrackFrame.trackListener.positionUpdated(address);
     }
 }

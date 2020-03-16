@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrackUtil {
-    private static final String CRON = "0/1 * * * * ?";
+    private static final String CRON = "0/7 * * * * ?";
     private static final int COUNT = 30;
     private static final List<JobDetail> JOB_LIST;
 
