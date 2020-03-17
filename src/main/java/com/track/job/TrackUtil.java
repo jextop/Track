@@ -1,6 +1,7 @@
 package com.track.job;
 
 import com.track.util.MacUtil;
+import com.track.util.PoissonUtil;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
@@ -46,9 +47,15 @@ public class TrackUtil {
 
         try {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
-
-            // 配置任务
             for (JobDetail job : JOB_LIST) {
+                // 泊松分布启动客户端
+                int i = PoissonUtil.getPoissonVariable(3.25) * 50;
+                if (i > 0) {
+                    Thread.sleep(i);
+                }
+                System.out.printf("启动客户端: %s, 间隔: %d\n", job.getKey().getName(), i);
+
+                // 配置任务
                 Trigger trigger = TriggerBuilder.newTrigger()
                         .forJob(job)
                         .withSchedule(scheduleBuilder)
@@ -60,6 +67,8 @@ public class TrackUtil {
             // 开启任务
             scheduler.start();
         } catch (SchedulerException e) {
+            System.err.println(e.getMessage());
+        } catch (InterruptedException e) {
             System.err.println(e.getMessage());
         }
     }
