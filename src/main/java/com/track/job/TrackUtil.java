@@ -1,7 +1,7 @@
 package com.track.job;
 
 import com.track.util.MacUtil;
-import com.track.util.PoissonUtil;
+import org.apache.commons.math3.distribution.PoissonDistribution;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
@@ -44,16 +44,19 @@ public class TrackUtil {
 
     public static void start() {
         CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(CRON);
+        PoissonDistribution distribution = new PoissonDistribution(15);
 
         try {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
-            for (JobDetail job : JOB_LIST) {
+            for (int i = 0; i < JOB_LIST.size(); i++) {
+                JobDetail job = JOB_LIST.get(i);
+
                 // 泊松分布启动客户端
-                int i = PoissonUtil.getPoissonVariable(3.25) * 50;
-                if (i > 0) {
-                    Thread.sleep(i);
+                int j = (int) (distribution.probability(i) * 1000);
+                if (j > 0) {
+                    Thread.sleep(j);
                 }
-                System.out.printf("启动客户端: %s, 间隔: %d\n", job.getKey().getName(), i);
+                System.out.printf("启动客户端: %s, 间隔: %d\n", job.getKey().getName(), j);
 
                 // 配置任务
                 Trigger trigger = TriggerBuilder.newTrigger()
