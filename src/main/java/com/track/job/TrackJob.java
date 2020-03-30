@@ -15,7 +15,7 @@ import org.quartz.JobExecutionException;
 
 public class TrackJob implements Job {
     private static final double LAMBDA = 3.25;
-    private static final int COUNT = 30;
+    private static final int COUNT = 12;
 
     @Override
     public void execute(JobExecutionContext var1) throws JobExecutionException {
