@@ -2,7 +2,6 @@ package com.track.job;
 
 import com.track.util.MacUtil;
 import com.track.util.PoissonUtil;
-import org.apache.commons.math3.distribution.PoissonDistribution;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
@@ -46,7 +45,6 @@ public class TrackUtil {
 
     public static void start() {
         CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(CRON);
-        PoissonDistribution distribution = new PoissonDistribution(3.25);
 
         try {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
